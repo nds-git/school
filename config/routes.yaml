@@ -7,3 +7,7 @@ controllers:
 hello_world:
     path: /world/hello
     controller: App\Controller\WorldController::hello
+
+create_user:
+    path: /create/user
+    controller: App\Controller\UserController::createUser
