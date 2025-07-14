@@ -4,10 +4,42 @@ controllers:
         namespace: App\Controller
     type: attribute
 
-hello_world:
-    path: /world/hello
-    controller: App\Controller\WorldController::hello
-
 create_user:
     path: /create/user
     controller: App\Controller\UserController::createUser
+
+find_user_login:
+    path: find/user/login
+    controller: App\Controller\UserController::findUserByLogin
+
+update_user_login:
+    path: update/user/login
+    controller: App\Controller\UserController::updateLogin
+
+find_user_login_db:
+    path: find/user/login/db
+    controller: App\Controller\UserController::findUsersByLoginWithQB
+
+update_user_login_db:
+    path: update/user/login/db
+    controller: App\Controller\UserController::updateUsersByLoginWithQB
+
+remove_user:
+    path: remove/user
+    controller: App\Controller\UserController::removeUser
+
+remove_user_future:
+    path: remove/user/future
+    controller: App\Controller\UserController::removeUserFuture
+
+find_user_with_deleted:
+    path: find/user/deleted
+    controller: App\Controller\UserController::findUserLoginWithDeleted
+
+create_course_with_lecture_and_exercises:
+    path: /create/course/with/lecture/exercises
+    controller: App\Controller\CourseController::createCourseWithLectureAndExercises
+
+create_course_with_lecture:
+    path: /create/course/with/lecture
+    controller: App\Controller\CourseController::createCourseWithLecture

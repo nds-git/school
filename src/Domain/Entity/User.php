@@ -2,12 +2,14 @@
 
 namespace App\Domain\Entity;
 
-use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use DateInterval;
+use DateTime;
 
 #[ORM\Table(name: '`user`')]
 #[ORM\Entity]
-class User implements EntityInterface
+#[ORM\HasLifecycleCallbacks]
+class User implements EntityInterface, HasMetaTimestampsInterface, SoftDeletableInterface, SoftDeletableInFutureInterface
 {
     #[ORM\Column(name: 'id', type: 'bigint', unique: true)]
     #[ORM\Id]
@@ -25,6 +27,9 @@ class User implements EntityInterface
 
     #[ORM\Column(name: 'updated_at', type: 'datetime', nullable: false)]
     private DateTime $updatedAt;
+
+    #[ORM\Column(name: 'deleted_at', type: 'datetime', nullable: true)]
+    private ?DateTime $deletedAt = null;
 
     public function getId(): int
     {
@@ -60,16 +65,37 @@ class User implements EntityInterface
         return $this->createdAt;
     }
 
+    #[ORM\PrePersist]
     public function setCreatedAt(): void {
         $this->createdAt = new DateTime();
     }
 
-    public function getUpdatedAt(): DateTime {
+    public function getUpdatedAt(): ?DateTime {
         return $this->updatedAt;
     }
 
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
     public function setUpdatedAt(): void {
         $this->updatedAt = new DateTime();
+    }
+
+    public function getDeletedAt(): ?DateTime
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(): void
+    {
+        $this->deletedAt = new DateTime();
+    }
+
+    public function setDeletedAtInFuture(DateInterval $dateInterval): void
+    {
+        if ($this->deletedAt === null) {
+            $this->deletedAt = new DateTime();
+        }
+        $this->deletedAt = $this->deletedAt->add($dateInterval);
     }
 
     public function toArray(): array
@@ -80,6 +106,7 @@ class User implements EntityInterface
             'name' => $this->name,
             'createdAt' => $this->createdAt->format('Y-m-d H:i:s'),
             'updatedAt' => $this->updatedAt->format('Y-m-d H:i:s'),
+            'deletedAt' => $this->deletedAt->format('Y-m-d H:i:s'),
         ];
     }
 }
