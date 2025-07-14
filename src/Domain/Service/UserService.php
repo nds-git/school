@@ -2,14 +2,18 @@
 
 namespace App\Domain\Service;
 
+use App\Infrastructure\Repository\CourseRepository;
 use App\Infrastructure\Repository\UserRepository;
+use App\Domain\Entity\Course;
 use App\Domain\Entity\User;
 use DateInterval;
 
 class UserService
 {
-    public function __construct(private readonly UserRepository $userRepository)
-    {
+    public function __construct(
+        private readonly UserRepository $userRepository,
+        private readonly CourseRepository $courseRepository
+    ) {
     }
 
     public function create(string $login, string $name): User
@@ -80,5 +84,17 @@ class UserService
     public function findUsersByLoginWithDeleted(string $login): array
     {
         return $this->userRepository->findUsersByLoginWithDeleted($login);
+    }
+
+    public function addUserCourse(int $userId, int $courseId): User
+    {
+        $user = $this->userRepository->find($userId);
+        $course = $this->courseRepository->find($courseId);
+        if ($user instanceof User && $course instanceof Course) {
+            $course->addUser($user);
+            $this->userRepository->courseUser($user, $course);
+        }
+
+        return $user;
     }
 }

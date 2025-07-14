@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use App\Domain\Service\UserBuilderService;
 use App\Domain\Service\UserService;
 use App\Domain\Entity\User;
 use DateInterval;
@@ -18,7 +19,7 @@ class UserController extends AbstractController
 
     public function createUser(): Response
     {
-        $user = $this->userService->create('kristi', 'Kristina');
+        $user = $this->userService->create('monika', 'Monika');
 
         return $this->json($user->toArray());
     }
@@ -78,5 +79,12 @@ class UserController extends AbstractController
         $usersByLogin = $this->userService->findUsersByLoginWithDeleted($user->getLogin());
 
         return $this->json(['users' => array_map(static fn (User $user) => $user->toArray(), $usersByLogin)]);
+    }
+
+    public function addUserCourse(): Response
+    {
+        $user = $this->userService->addUserCourse(1, 1);
+
+        return $this->json($user->toArray());
     }
 }

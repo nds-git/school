@@ -11,9 +11,13 @@ use DateTime;
 #[ORM\Entity]
 class Course implements EntityInterface
 {
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'courses')]
+    private $users;
+
     public function __construct()
     {
         $this->lectures = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     #[ORM\Column(name: 'id', type: 'bigint', unique: true)]
@@ -98,6 +102,15 @@ class Course implements EntityInterface
         }
     }
 
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $user->addCourse($this); // Обновляем связанную сторону
+        }
+
+        return $this;
+    }
+
     public function toArray(): array
     {
         return [
@@ -107,6 +120,7 @@ class Course implements EntityInterface
             'updatedAt' => $this->updatedAt->format('Y-m-d H:i:s'),
             'isActive' => $this->isActive,
             'lectures' => array_map(static fn(Lecture $lecture) => $lecture->toArray(), $this->lectures->toArray()),
+            'users' => array_map(static fn(User $user) => $user->toArray(), $this->users->toArray()),
         ];
     }
 }
