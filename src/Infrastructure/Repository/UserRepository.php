@@ -2,6 +2,7 @@
 
 namespace App\Infrastructure\Repository;
 
+use App\Domain\Entity\Course;
 use Doctrine\Common\Collections\Criteria;
 use App\Domain\Entity\User;
 use DateInterval;
@@ -88,5 +89,12 @@ class UserRepository extends AbstractRepository
             $filters->disable('soft_delete_filter');
         }
         return $this->entityManager->getRepository(User::class)->findBy(['login' => $name]);
+    }
+
+    public function courseUser(User $user, Course $course): void
+    {
+        $user->addCourse($course);
+        $course->addUser($user);
+        $this->entityManager->flush();
     }
 }

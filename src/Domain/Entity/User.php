@@ -2,6 +2,8 @@
 
 namespace App\Domain\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use DateInterval;
 use DateTime;
@@ -15,6 +17,15 @@ class User implements EntityInterface, HasMetaTimestampsInterface, SoftDeletable
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'IDENTITY')]
     private ?int $id = null;
+
+    #[ORM\ManyToMany(targetEntity: Course::class, inversedBy: 'users')]
+    #[ORM\JoinTable(name: 'user_course')]
+    private $courses;
+
+    public function __construct()
+    {
+        $this->courses = new ArrayCollection();
+    }
 
     #[ORM\Column(type: 'string', length: 32, nullable: false)]
     private string $login;
@@ -98,6 +109,13 @@ class User implements EntityInterface, HasMetaTimestampsInterface, SoftDeletable
         $this->deletedAt = $this->deletedAt->add($dateInterval);
     }
 
+    public function addCourse(Course $course): void
+    {
+        if (!$this->courses->contains($course)) {
+            $this->courses->add($course);
+        }
+    }
+
     public function toArray(): array
     {
         return [
@@ -106,7 +124,8 @@ class User implements EntityInterface, HasMetaTimestampsInterface, SoftDeletable
             'name' => $this->name,
             'createdAt' => $this->createdAt->format('Y-m-d H:i:s'),
             'updatedAt' => $this->updatedAt->format('Y-m-d H:i:s'),
-            'deletedAt' => $this->deletedAt->format('Y-m-d H:i:s'),
+            'deletedAt' => !is_null($this->deletedAt) ? $this->deletedAt->format('Y-m-d H:i:s') : '',
+            'courses' => array_map(static fn(Course $course) => $course->toArray(), $this->courses->toArray()),
         ];
     }
 }

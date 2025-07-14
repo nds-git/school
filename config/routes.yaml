@@ -28,6 +28,10 @@ remove_user:
     path: remove/user
     controller: App\Controller\UserController::removeUser
 
+add_user_course:
+    path: add/user/course
+    controller: App\Controller\UserController::addUserCourse
+
 remove_user_future:
     path: remove/user/future
     controller: App\Controller\UserController::removeUserFuture
