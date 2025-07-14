@@ -2,6 +2,7 @@
 
 namespace App\Infrastructure\Repository;
 
+use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Domain\Entity\EntityInterface;
 
@@ -28,5 +29,14 @@ abstract class AbstractRepository
         $this->flush();
 
         return $entity->getId();
+    }
+
+    /**
+     * @param T $entity
+     * @throws ORMException
+     */
+    public function refresh(EntityInterface $entity): void
+    {
+        $this->entityManager->refresh($entity);
     }
 }
