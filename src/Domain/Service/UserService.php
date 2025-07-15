@@ -16,7 +16,7 @@ class UserService
     ) {
     }
 
-    public function create(string $login, string $name): User
+    public function createUser(string $login, string $name): User
     {
         $user = new User();
         $user->setLogin($login);
@@ -34,15 +34,22 @@ class UserService
         return $this->userRepository->findUserByLogin($login);
     }
 
-    public function updateUserLogin(int $userId, string $login): ?User
+    public function findUserById(int $id): ?User
     {
-        $user = $this->userRepository->find($userId);
-        if (!($user instanceof User)) {
-            return null;
-        }
-        $this->userRepository->updateLogin($user, $login);
+        return $this->userRepository->find($id);
+    }
 
-        return $user;
+    /**
+     * @return User[]
+     */
+    public function findAll(): array
+    {
+        return $this->userRepository->findAll();
+    }
+
+    public function updateLogin(User $user, string $login): void
+    {
+        $this->userRepository->updateLogin($user, $login);
     }
 
     public function findUsersByLoginWithQueryBuilder(string $login): array
@@ -62,12 +69,21 @@ class UserService
         return $user;
     }
 
-    public function removeById(int $userId): void
+    public function remove(User $user): void
+    {
+        $this->userRepository->remove($user);
+    }
+
+    public function removeById(int $userId): bool
     {
         $user = $this->userRepository->find($userId);
         if ($user instanceof User) {
             $this->userRepository->remove($user);
+
+            return true;
         }
+
+        return false;
     }
 
     public function removeByIdInFuture(int $userId, DateInterval $dateInterval): void

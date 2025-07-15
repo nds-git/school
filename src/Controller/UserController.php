@@ -17,26 +17,11 @@ class UserController extends AbstractController
     {
     }
 
-    public function createUser(): Response
-    {
-        $user = $this->userService->create('monika', 'Monika');
-
-        return $this->json($user->toArray());
-    }
-
     public function findUserByLogin(): Response
     {
         $users = $this->userService->findUserByLogin('olga');
 
         return $this->json(array_map(static fn(User $user) => $user->toArray(), $users));
-    }
-
-    public function updateLogin(): Response
-    {
-        $user = $this->userService->updateUserLogin(1, 'Malena');
-        [$data, $code] = $user === null ? [null, Response::HTTP_NOT_FOUND] : [$user->toArray(), Response::HTTP_OK];
-
-        return $this->json($data, $code);
     }
 
     public function findUsersByLoginWithQB(): Response
@@ -83,7 +68,7 @@ class UserController extends AbstractController
 
     public function addUserCourse(): Response
     {
-        $user = $this->userService->addUserCourse(1, 1);
+        $user = $this->userService->addUserCourse(11, 1);
 
         return $this->json($user->toArray());
     }
