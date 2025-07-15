@@ -26,6 +26,14 @@ class UserRepository extends AbstractRepository
         return $user;
     }
 
+    /**
+     * @return User[]
+     */
+    public function findAll(): array
+    {
+        return $this->entityManager->getRepository(User::class)->findAll();
+    }
+
     public function updateLogin(User $user, string $login): void
     {
         $user->setLogin($login);
