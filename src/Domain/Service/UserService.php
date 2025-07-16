@@ -4,6 +4,7 @@ namespace App\Domain\Service;
 
 use App\Infrastructure\Repository\CourseRepository;
 use App\Infrastructure\Repository\UserRepository;
+use App\Domain\Model\CreateUserModel;
 use App\Domain\Entity\Course;
 use App\Domain\Entity\User;
 use DateInterval;
@@ -16,11 +17,11 @@ class UserService
     ) {
     }
 
-    public function createUser(string $login, string $name): User
+    public function createUser(CreateUserModel $createUserModel): User
     {
         $user = new User();
-        $user->setLogin($login);
-        $user->setName($name);
+        $user->setLogin($createUserModel->login);
+        $user->setName($createUserModel->name);
         $this->userRepository->create($user);
 
         return $user;
