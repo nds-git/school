@@ -2,24 +2,34 @@
 
 namespace App\Controller\Web\User\Create\v1;
 
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use App\Domain\Event\CreateUserEvent;
+use App\Controller\Web\User\Create\v1\Output\CreatedUserDTO;
+use App\Controller\Web\User\Create\v1\Input\CreateUserDTO;
+use App\Domain\Model\CreateUserModel;
+use App\Domain\Service\ModelFactory;
 use App\Domain\Service\UserService;
 use App\Domain\Entity\User;
 
 class Manager
 {
     public function __construct(
+        /** @var ModelFactory<CreateUserModel> */
+        private readonly ModelFactory $modelFactory,
         private readonly UserService $userService,
-        private readonly EventDispatcherInterface $eventDispatcher
     ) {
     }
 
-    public function create(string $login, string $name): ?User
+    public function create(CreateUserDTO $createUserDTO): CreatedUserDTO
     {
-        $event = new CreateUserEvent($login, $name);
-        $this->eventDispatcher->dispatch($event);
+        $createUserModel =  $this->modelFactory->makeModel(CreateUserModel::class, $createUserDTO->login, $createUserDTO->name);
 
-        return $event->id === null ? null : $this->userService->findUserById($event->id);
+        $user = $this->userService->createUser($createUserModel);
+
+        return new CreatedUserDTO(
+            $user->getId(),
+            $user->getLogin(),
+            $user->getName(),
+            $user->getCreatedAt()->format('Y-m-d H:i:s'),
+            $user->getUpdatedAt()->format('Y-m-d H:i:s'),
+        );
     }
 }
