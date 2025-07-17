@@ -7,7 +7,6 @@ use App\Controller\Web\User\Create\v1\Input\CreateUserDTO;
 use App\Domain\Model\CreateUserModel;
 use App\Domain\Service\ModelFactory;
 use App\Domain\Service\UserService;
-use App\Domain\Entity\User;
 
 class Manager
 {
@@ -21,7 +20,6 @@ class Manager
     public function create(CreateUserDTO $createUserDTO): CreatedUserDTO
     {
         $createUserModel =  $this->modelFactory->makeModel(CreateUserModel::class, $createUserDTO->login, $createUserDTO->name);
-
         $user = $this->userService->createUser($createUserModel);
 
         return new CreatedUserDTO(

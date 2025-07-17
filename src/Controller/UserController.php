@@ -59,7 +59,7 @@ class UserController extends AbstractController
 
     public function findUserLoginWithDeleted(): Response
     {
-        $user = $this->userService->create('tonni', 'Stark');
+        $user = $this->userService->createUser('tonni', 'Stark');
         $this->userService->removeById($user->getId());
         $usersByLogin = $this->userService->findUsersByLoginWithDeleted($user->getLogin());
 

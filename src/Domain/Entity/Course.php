@@ -111,6 +111,15 @@ class Course implements EntityInterface
         return $this;
     }
 
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function getLectures(): ?array {
+        return array_map(static fn(Lecture $lecture) => $lecture->toArray(), $this->lectures->toArray());
+    }
+
     public function toArray(): array
     {
         return [

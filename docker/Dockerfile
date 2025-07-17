@@ -1,5 +1,7 @@
 FROM php:8.3-fpm-alpine
 
+RUN echo "memory_limit=512M" >> /usr/local/etc/php/conf.d/memory_limit.ini
+
 # Install dev dependencies
 RUN apk update \
     && apk upgrade --available \
