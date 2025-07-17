@@ -4,6 +4,7 @@ namespace App\Domain\Service;
 
 use App\Infrastructure\Repository\CourseRepository;
 use App\Infrastructure\Repository\UserRepository;
+use App\Domain\Model\AddCourseUserModel;
 use App\Domain\Model\CreateUserModel;
 use App\Domain\Entity\Course;
 use App\Domain\Entity\User;
@@ -103,11 +104,13 @@ class UserService
         return $this->userRepository->findUsersByLoginWithDeleted($login);
     }
 
-    public function addUserCourse(int $userId, int $courseId): User
+    public function addUserCourse(AddCourseUserModel $addCourseUserModel): User
     {
-        $user = $this->userRepository->find($userId);
-        $course = $this->courseRepository->find($courseId);
-        if ($user instanceof User && $course instanceof Course) {
+        $user = $this->userRepository->find($addCourseUserModel->userId);
+        $course = $this->courseRepository->find($addCourseUserModel->courseId);
+        $users = $course->getUsers();
+
+        if ($user instanceof User && $course instanceof Course && !$users->contains($user)) {
             $course->addUser($user);
             $this->userRepository->courseUser($user, $course);
         }

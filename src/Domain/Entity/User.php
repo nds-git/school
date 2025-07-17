@@ -117,6 +117,18 @@ class User implements EntityInterface, HasMetaTimestampsInterface, SoftDeletable
         }
     }
 
+    public function isCourseBelongs(Course $course): bool {
+        if ($this->courses->contains($course)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function getCourses(): ?array {
+        return array_map(static fn(Course $course) => $course->toArray(), $this->courses->toArray());
+    }
+
     public function toArray(): array
     {
         return [

@@ -21,7 +21,7 @@ class CourseBuilderService
      */
     public function createLectureWithCourse(string $CourseTitle, int $isActive, array $lectureTitles): Course
     {
-        $course = $this->courseService->postCourse($CourseTitle, $isActive);
+        $course = $this->courseService->createCourse($CourseTitle, $isActive);
         foreach ($lectureTitles as $title) {
             $this->lectureService->postLecture($course, $title, $isActive);
         }
@@ -38,7 +38,7 @@ class CourseBuilderService
      */
     public function createCourse(string $CourseTitle, int $isActive, array $lectureTitles): Course
     {
-        $course = $this->courseService->postCourse($CourseTitle, $isActive);
+        $course = $this->courseService->createCourse($CourseTitle, $isActive);
         foreach ($lectureTitles as $title) {
             $this->lectureService->postLecture($course, $title, $isActive);
         }
