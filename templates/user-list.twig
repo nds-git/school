@@ -1,0 +1,15 @@
+{% extends 'layout.twig' %}
+
+{% import 'macros.twig' as macros %}
+
+{% block title %}
+    User table
+{% endblock %}
+{% block body %}
+    <table>
+        <tbody>
+        <tr><th>ID</th><th>Логин</th><th>Имя</th></tr>
+            {{ macros.user_table_body(users) }}
+        </tbody>
+    </table>
+{% endblock %}

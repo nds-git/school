@@ -2,11 +2,14 @@
 
 namespace App\Domain\Model;
 
-class CreateUserModel
+readonly class CreateUserModel
 {
     public function __construct(
-        public readonly string $login,
-        public readonly string $name,
+        public string $login,
+        public string $name,
+        public string $password = 'myPass',
+        public int $age = 18,
+        public int $isActive = 0,
     ) {
     }
 }

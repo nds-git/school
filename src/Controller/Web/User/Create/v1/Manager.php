@@ -26,6 +26,8 @@ class Manager
             $user->getId(),
             $user->getLogin(),
             $user->getName(),
+            $user->getAge(),
+            $user->getIsActive(),
             $user->getCreatedAt()->format('Y-m-d H:i:s'),
             $user->getUpdatedAt()->format('Y-m-d H:i:s'),
         );
