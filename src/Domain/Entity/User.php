@@ -3,7 +3,6 @@
 namespace App\Domain\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use DateInterval;
 use DateTime;
@@ -42,6 +41,15 @@ class User implements EntityInterface, HasMetaTimestampsInterface, SoftDeletable
 
     #[ORM\Column(name: 'deleted_at', type: 'datetime', nullable: true)]
     private ?DateTime $deletedAt = null;
+
+    #[ORM\Column(type: 'string', nullable: false)]
+    private string $password;
+
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private int $age;
+
+    #[ORM\Column(type: 'integer', nullable: false)]
+    private bool $isActive;
 
     public function getId(): int
     {
@@ -125,8 +133,38 @@ class User implements EntityInterface, HasMetaTimestampsInterface, SoftDeletable
         return false;
     }
 
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): void
+    {
+        $this->password = $password;
+    }
+
+    public function getAge(): int
+    {
+        return $this->age;
+    }
+
+    public function setAge(int $age): void
+    {
+        $this->age = $age;
+    }
+
     public function getCourses(): ?array {
         return array_map(static fn(Course $course) => $course->toArray(), $this->courses->toArray());
+    }
+
+    public function getIsActive(): int
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(int $isActive): void
+    {
+        $this->isActive = $isActive;
     }
 
     public function toArray(): array

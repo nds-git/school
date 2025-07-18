@@ -23,6 +23,9 @@ class UserService
         $user = new User();
         $user->setLogin($createUserModel->login);
         $user->setName($createUserModel->name);
+        $user->setPassword($createUserModel->password);
+        $user->setAge($createUserModel->age);
+        $user->setIsActive($createUserModel->isActive);
         $this->userRepository->create($user);
 
         return $user;
