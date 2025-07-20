@@ -45,11 +45,11 @@ class User implements EntityInterface, HasMetaTimestampsInterface, SoftDeletable
     #[ORM\Column(type: 'string', nullable: false)]
     private string $password;
 
-    #[ORM\Column(type: 'integer', nullable: false)]
-    private int $age;
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $age;
 
     #[ORM\Column(type: 'integer', nullable: false)]
-    private bool $isActive;
+    private int $isActive;
 
     public function getId(): int
     {
@@ -173,6 +173,7 @@ class User implements EntityInterface, HasMetaTimestampsInterface, SoftDeletable
             'id' => $this->id,
             'login' => $this->login,
             'name' => $this->name,
+            'age' => $this->age,
             'createdAt' => $this->createdAt->format('Y-m-d H:i:s'),
             'updatedAt' => $this->updatedAt->format('Y-m-d H:i:s'),
             'deletedAt' => !is_null($this->deletedAt) ? $this->deletedAt->format('Y-m-d H:i:s') : '',

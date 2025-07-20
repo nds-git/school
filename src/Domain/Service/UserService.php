@@ -5,6 +5,7 @@ namespace App\Domain\Service;
 use App\Infrastructure\Repository\CourseRepository;
 use App\Infrastructure\Repository\UserRepository;
 use App\Domain\Model\AddCourseUserModel;
+use App\Domain\Model\UpdateUserModel;
 use App\Domain\Model\CreateUserModel;
 use App\Domain\Entity\Course;
 use App\Domain\Entity\User;
@@ -29,6 +30,22 @@ class UserService
         $this->userRepository->create($user);
 
         return $user;
+    }
+
+    public function updateUserFromForm(UpdateUserModel $updateUserModel, User $user): User
+    {
+        $user->setLogin($updateUserModel->login);
+        $user->setName($updateUserModel->name);
+        $user->setPassword($updateUserModel->password);
+        $user->setAge($updateUserModel->age);
+        $user->setIsActive($updateUserModel->isActive);
+
+        return $this->userRepository->updateUser($user);
+    }
+
+    public function processFromForm(User $user): void
+    {
+        $this->userRepository->create($user);
     }
 
     /**

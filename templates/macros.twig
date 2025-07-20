@@ -1,9 +1,12 @@
 {% macro user_table_body(users) %}
+{#    {{ dump(users) }}#}
     {% for user in users %}
         <tr>
-            <td>{{ user.id|my_twice }}</td>
+            <td>{{ user.id }}</td>
             <td>{{ user.login }}</td>
             <td>{{ user.name }}</td>
+            <td>{{ user.age }}</td>
+            <td>{{ user.isActive }}</td>
         </tr>
     {% endfor %}
 {% endmacro %}
