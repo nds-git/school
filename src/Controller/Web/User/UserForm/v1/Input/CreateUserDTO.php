@@ -17,8 +17,8 @@ class CreateUserDTO
         public ?string $name = null,
         #[Assert\NotBlank]
         public ?string $password = '123',
-        public int $age = 0,
-        public int $isActive = 0,
+        public ?int $age = 0,
+        public ?int $isActive = 0,
     ) {
     }
 }
