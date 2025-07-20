@@ -19,7 +19,14 @@ class Manager
 
     public function create(CreateUserDTO $createUserDTO): CreatedUserDTO
     {
-        $createUserModel =  $this->modelFactory->makeModel(CreateUserModel::class, $createUserDTO->login, $createUserDTO->name);
+        $createUserModel =  $this->modelFactory->makeModel(
+            CreateUserModel::class,
+            $createUserDTO->login,
+            $createUserDTO->name,
+            $createUserDTO->password,
+            $createUserDTO->age,
+            $createUserDTO->isActive,
+        );
         $user = $this->userService->createUser($createUserModel);
 
         return new CreatedUserDTO(
@@ -28,6 +35,7 @@ class Manager
             $user->getName(),
             $user->getAge(),
             $user->getIsActive(),
+            $user->getPassword(),
             $user->getCreatedAt()->format('Y-m-d H:i:s'),
             $user->getUpdatedAt()->format('Y-m-d H:i:s'),
         );

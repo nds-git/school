@@ -8,17 +8,15 @@ use Symfony\Component\Validator\Constraints as Assert;
     expression: '(this.login !== null and this.name !== null)',
     message: 'Both login and name should be provided'
 )]
-class UpdateUserDTO
+readonly class UpdateUserDTO
 {
     public function __construct(
-        #[Assert\NotBlank]
-        public ?string $login = null,
-        #[Assert\NotBlank]
-        public ?string $name = null,
-        #[Assert\NotBlank]
-        public ?string $password = '123',
-        public int $age = 0,
-        public int $isActive = 0,
+        #[Assert\Length(max: 10)]
+        public string $login,
+        public string $name,
+        public int $age,
+        public int $isActive,
+        public string $password,
     ) {
     }
 }

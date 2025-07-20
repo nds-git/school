@@ -47,7 +47,7 @@ class Manager
                     $createUserDTO->name,
                     $createUserDTO->password,
                     $createUserDTO->age,
-                    $createUserDTO->isActive,
+                    $createUserDTO->isActive ?? 0,
                 );
 
                 $user = $this->userService->createUser($createUserModel);

@@ -3,7 +3,6 @@
 namespace App\Controller\Form;
 
 use App\Controller\Web\User\UserForm\v1\Input\CreateUserDTO;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -11,7 +10,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
-use App\Domain\Entity\User;
 
 class UserType extends AbstractType
 {
@@ -37,11 +35,9 @@ class UserType extends AbstractType
                 ],
             ]);
 
-        if ($options['isNew'] ?? false) {
-            $builder->add('password', PasswordType::class, [
-                'label' => 'Пароль пользователя',
-            ]);
-        }
+        $builder->add('password', PasswordType::class, [
+            'label' => 'Пароль пользователя',
+        ]);
 
         $builder
             ->add('age', IntegerType::class, [

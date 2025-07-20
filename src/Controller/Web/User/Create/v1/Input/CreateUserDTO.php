@@ -4,7 +4,7 @@ namespace App\Controller\Web\User\Create\v1\Input;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-class CreateUserDTO
+readonly class CreateUserDTO
 {
     public function __construct(
         #[Assert\Expression(
@@ -12,8 +12,11 @@ class CreateUserDTO
             message: 'Both login and name should be provided'
         )]
         #[Assert\Length(max: 10)]
-        public readonly string $login,
-        public readonly string $name,
+        public string $login,
+        public string $name,
+        public int $age,
+        public int $isActive,
+        public string $password,
     ) {
     }
 }

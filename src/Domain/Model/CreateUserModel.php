@@ -7,9 +7,9 @@ readonly class CreateUserModel
     public function __construct(
         public string $login,
         public string $name,
-        public string $password = '123',
-        public int $age = 0,
-        public int $isActive = 0,
+        public string $password,
+        public int $age,
+        public int $isActive,
     ) {
     }
 }
