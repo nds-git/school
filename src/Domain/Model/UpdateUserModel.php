@@ -2,7 +2,7 @@
 
 namespace App\Domain\Model;
 
-readonly class CreateUserModel
+readonly class UpdateUserModel
 {
     public function __construct(
         public string $login,
