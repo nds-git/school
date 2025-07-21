@@ -12,11 +12,13 @@ class ExerciseService
     {
     }
 
-    public function postExercise(Lecture $lecture, string $titleExercise, int $isActive): Exercise
+    public function postExercise(Lecture $lecture, string $titleExercise, int $speakPoint, int $audioPoint, int $isActive): Exercise
     {
         $exercise = new Exercise();
         $exercise->setLecture($lecture);
         $exercise->setTitleExercise($titleExercise);
+        $exercise->setSpeakPoint($speakPoint);
+        $exercise->setAudioPoint($audioPoint);
         $exercise->setCreatedAt();
         $exercise->setUpdatedAt();
         $exercise->setIsActive($isActive);
