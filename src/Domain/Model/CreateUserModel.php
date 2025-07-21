@@ -10,6 +10,7 @@ readonly class CreateUserModel
         public string $password,
         public int $age,
         public int $isActive,
+        public array $roles = [],
     ) {
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Domain\Service;
 
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Infrastructure\Repository\CourseRepository;
 use App\Infrastructure\Repository\UserRepository;
 use App\Domain\Model\AddCourseUserModel;
@@ -15,7 +16,8 @@ class UserService
 {
     public function __construct(
         private readonly UserRepository $userRepository,
-        private readonly CourseRepository $courseRepository
+        private readonly CourseRepository $courseRepository,
+        private readonly UserPasswordHasherInterface $userPasswordHasher,
     ) {
     }
 
@@ -24,9 +26,10 @@ class UserService
         $user = new User();
         $user->setLogin($createUserModel->login);
         $user->setName($createUserModel->name);
-        $user->setPassword($createUserModel->password);
+        $user->setPassword($this->userPasswordHasher->hashPassword($user, $createUserModel->password));
         $user->setAge($createUserModel->age);
         $user->setIsActive($createUserModel->isActive);
+        $user->setRoles($createUserModel->roles);
         $this->userRepository->create($user);
 
         return $user;

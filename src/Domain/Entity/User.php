@@ -2,7 +2,10 @@
 
 namespace App\Domain\Entity;
 
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
+use App\Domain\ValueObject\RoleEnum;
 use Doctrine\ORM\Mapping as ORM;
 use DateInterval;
 use DateTime;
@@ -11,7 +14,7 @@ use DateTime;
 #[ORM\Entity]
 #[ORM\HasLifecycleCallbacks]
 #[ORM\UniqueConstraint(name: 'user__login__uniq', columns: ['login'], options: ['where' => '(deleted_at IS NULL)'])]
-class User implements EntityInterface, HasMetaTimestampsInterface, SoftDeletableInterface, SoftDeletableInFutureInterface
+class User implements EntityInterface, HasMetaTimestampsInterface, SoftDeletableInterface, SoftDeletableInFutureInterface, UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Column(name: 'id', type: 'bigint', unique: true)]
     #[ORM\Id]
@@ -50,6 +53,9 @@ class User implements EntityInterface, HasMetaTimestampsInterface, SoftDeletable
 
     #[ORM\Column(type: 'integer', nullable: false)]
     private int $isActive;
+
+    #[ORM\Column(type: 'json', length: 1024, nullable: false)]
+    private array $roles = [];
 
     public function getId(): int
     {
@@ -165,6 +171,35 @@ class User implements EntityInterface, HasMetaTimestampsInterface, SoftDeletable
     public function setIsActive(int $isActive): void
     {
         $this->isActive = $isActive;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = RoleEnum::ROLE_USER->value;
+
+        return array_unique($roles);
+    }
+
+    /**
+     * @param string[] $roles
+     */
+    public function setRoles(array $roles): void
+    {
+        $this->roles = $roles;
+    }
+
+    public function eraseCredentials(): void
+    {
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->login;
     }
 
     public function toArray(): array

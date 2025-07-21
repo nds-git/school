@@ -17,6 +17,8 @@ readonly class CreateUserDTO
         public int $age,
         public int $isActive,
         public string $password,
+        /** @var string[] $roles */
+        public array $roles,
     ) {
     }
 }
