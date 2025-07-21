@@ -211,6 +211,7 @@ class User implements EntityInterface, HasMetaTimestampsInterface, SoftDeletable
             'age' => $this->age,
             'createdAt' => $this->createdAt->format('Y-m-d H:i:s'),
             'updatedAt' => $this->updatedAt->format('Y-m-d H:i:s'),
+            'roles' => array_merge($this->roles, [RoleEnum::ROLE_USER->value]),
             'deletedAt' => !is_null($this->deletedAt) ? $this->deletedAt->format('Y-m-d H:i:s') : '',
             'courses' => array_map(static fn(Course $course) => $course->toArray(), $this->courses->toArray()),
         ];
