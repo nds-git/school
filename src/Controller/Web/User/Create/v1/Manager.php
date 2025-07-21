@@ -26,6 +26,7 @@ class Manager
             $createUserDTO->password,
             $createUserDTO->age,
             $createUserDTO->isActive,
+            $createUserDTO->roles
         );
         $user = $this->userService->createUser($createUserModel);
 
@@ -36,6 +37,7 @@ class Manager
             $user->getAge(),
             $user->getIsActive(),
             $user->getPassword(),
+            $user->getRoles(),
             $user->getCreatedAt()->format('Y-m-d H:i:s'),
             $user->getUpdatedAt()->format('Y-m-d H:i:s'),
         );

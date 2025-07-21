@@ -13,6 +13,8 @@ readonly class CreatedUserDTO implements OutputDTOInterface
         public int $age,
         public int $isActive,
         public string $password,
+        /** @var string[] $roles */
+        public array $roles,
         public string $createdAt,
         public string $updatedAt,
     ) {
