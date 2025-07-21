@@ -18,6 +18,7 @@ class Manager
                 'login' => $user->getLogin(),
                 'name' => $user->getName(),
                 'age' => $user->getAge(),
+                'roles' => $user->getRoles(),
                 'isActive' => $user->getIsActive(),
             ];
 

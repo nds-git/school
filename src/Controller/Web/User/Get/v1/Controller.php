@@ -3,6 +3,7 @@
 namespace App\Controller\Web\User\Get\v1;
 
 use Symfony\Component\HttpKernel\Attribute\AsController;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -16,6 +17,7 @@ class Controller
     }
 
     #[Route(path: 'api/v1/user', methods: ['GET'])]
+    #[IsGranted('ROLE_GET_LIST')]
     public function __invoke(Request $request): Response
     {
         $userId = $request->query->get('id');

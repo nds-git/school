@@ -27,10 +27,12 @@ class Manager
         $course = $this->courseService->createCourse($createCourseModel);
 
         if (!empty($createCourseDTO->titleLectures)) {
-            foreach ($createCourseDTO->titleLectures as $title) {
-                $lecture = $this->lectureService->postLecture($course, $title[0], $createCourseDTO->isActive);
-                foreach ($title[1] as $exercise) {
-                    $this->exerciseService->postExercise($lecture, $exercise, $createCourseDTO->isActive);
+            foreach ($createCourseDTO->titleLectures as $lectures) {
+
+                $lecture = $this->lectureService->postLecture($course, $lectures['titleLectures'], $createCourseDTO->isActive);
+                unset($lectures['titleLectures']);
+                foreach ($lectures as $exercise) {
+                    $this->exerciseService->postExercise($lecture, $exercise['titleExercise'], $exercise['speakPoint'], $exercise['audioPoint'], $createCourseDTO->isActive);
                 }
             }
         }

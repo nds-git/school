@@ -34,6 +34,12 @@ class Exercise implements EntityInterface
     #[ORM\Column(name: 'lecture_id', type: 'bigint', nullable: true)]
     private int $lectureId;
 
+    #[ORM\Column(name: 'speak_point', type: 'integer', nullable: true)]
+    private int $speakPoint;
+
+    #[ORM\Column(name: 'audio_point', type: 'integer', nullable: true)]
+    private int $audioPoint;
+
     #[ORM\Column(name: 'is_active', type: 'smallint', nullable: true)]
     private int $isActive;
 
@@ -99,6 +105,27 @@ class Exercise implements EntityInterface
         $this->lectureId = $lectureId;
     }
 
+
+    public function getSpeakPoint(): int
+    {
+        return $this->speakPoint;
+    }
+
+    public function setSpeakPoint(int $speakPoint): void
+    {
+        $this->speakPoint = $speakPoint;
+    }
+
+    public function getAudioPoint(): int
+    {
+        return $this->audioPoint;
+    }
+
+    public function setAudioPoint(int $audioPoint): void
+    {
+        $this->audioPoint = $audioPoint;
+    }
+
     public function getIsActive(): ?int {
         return $this->isActive;
     }
@@ -112,6 +139,8 @@ class Exercise implements EntityInterface
         return [
             'id' => $this->id,
             'titleExercise' => $this->titleExercise,
+            'speakPoint' => $this->speakPoint ?? 0,
+            'audioPoint' => $this->audioPoint ?? 0,
             'createdAt' => $this->createdAt->format('Y-m-d H:i:s'),
             'updatedAt' => $this->updatedAt->format('Y-m-d H:i:s'),
             'isActive' => $this->isActive,
