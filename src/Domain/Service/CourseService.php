@@ -24,6 +24,20 @@ class CourseService
         return $course;
     }
 
+    public function findCourseById(int $id): ?Course
+    {
+        return $this->courseRepository->find($id);
+    }
+
+
+    /**
+     * @return Course[]
+     */
+    public function findAll(): array
+    {
+        return $this->courseRepository->findAll();
+    }
+
     public function refresh(Course $course): void
     {
         $this->courseRepository->refresh($course);

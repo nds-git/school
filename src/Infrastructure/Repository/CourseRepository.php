@@ -22,4 +22,12 @@ class CourseRepository extends AbstractRepository
 
         return $course;
     }
+
+    /**
+     * @return Course[]
+     */
+    public function findAll(): array
+    {
+        return $this->entityManager->getRepository(Course::class)->findAll();
+    }
 }
