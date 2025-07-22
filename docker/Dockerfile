@@ -1,6 +1,6 @@
 FROM php:8.3-fpm-alpine
 
-RUN echo "memory_limit=512M" >> /usr/local/etc/php/conf.d/memory_limit.ini
+RUN echo "memory_limit=1024M" >> /usr/local/etc/php/conf.d/memory_limit.ini
 
 # Install dev dependencies
 RUN apk update \
@@ -42,7 +42,8 @@ RUN docker-php-ext-install -j$(getconf _NPROCESSORS_ONLN) \
     bcmath \
     pdo_pgsql \
     sockets \
-    zip
+    zip \
+    pcntl
 RUN pecl channel-update pecl.php.net \
     && pecl install -o -f \
         redis \

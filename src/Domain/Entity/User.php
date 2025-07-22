@@ -5,6 +5,7 @@ namespace App\Domain\Entity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use App\Domain\ValueObject\RoleEnum;
 use Doctrine\ORM\Mapping as ORM;
 use DateInterval;
@@ -28,6 +29,7 @@ class User implements EntityInterface, HasMetaTimestampsInterface, SoftDeletable
     public function __construct()
     {
         $this->courses = new ArrayCollection();
+        $this->exerciseUserPoint = new ArrayCollection();
     }
 
     #[ORM\Column(type: 'string', length: 32, nullable: false)]
@@ -56,6 +58,9 @@ class User implements EntityInterface, HasMetaTimestampsInterface, SoftDeletable
 
     #[ORM\Column(type: 'json', length: 1024, nullable: false)]
     private array $roles = [];
+
+    #[ORM\OneToMany(targetEntity: ExerciseUserPoint::class, mappedBy: 'user')]
+    private Collection $exerciseUserPoint;
 
     public function getId(): int
     {

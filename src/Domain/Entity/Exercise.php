@@ -34,11 +34,11 @@ class Exercise implements EntityInterface
     #[ORM\Column(name: 'lecture_id', type: 'bigint', nullable: true)]
     private int $lectureId;
 
-    #[ORM\Column(name: 'speak_point', type: 'integer', nullable: true)]
-    private int $speakPoint;
+    #[ORM\Column(name: 'max_speak_point', type: 'integer', nullable: true)]
+    private int $maxSpeakPoint;
 
-    #[ORM\Column(name: 'audio_point', type: 'integer', nullable: true)]
-    private int $audioPoint;
+    #[ORM\Column(name: 'max_audio_point', type: 'integer', nullable: true)]
+    private int $maxAudioPoint;
 
     #[ORM\Column(name: 'is_active', type: 'smallint', nullable: true)]
     private int $isActive;
@@ -106,24 +106,24 @@ class Exercise implements EntityInterface
     }
 
 
-    public function getSpeakPoint(): int
+    public function getMaxSpeakPoint(): int
     {
-        return $this->speakPoint;
+        return $this->maxSpeakPoint;
     }
 
-    public function setSpeakPoint(int $speakPoint): void
+    public function setMaxSpeakPoint(int $maxSpeakPoint): void
     {
-        $this->speakPoint = $speakPoint;
+        $this->maxSpeakPoint = $maxSpeakPoint;
     }
 
-    public function getAudioPoint(): int
+    public function getMaxAudioPoint(): int
     {
-        return $this->audioPoint;
+        return $this->maxAudioPoint;
     }
 
-    public function setAudioPoint(int $audioPoint): void
+    public function setMaxAudioPoint(int $maxAudioPoint): void
     {
-        $this->audioPoint = $audioPoint;
+        $this->maxAudioPoint = $maxAudioPoint;
     }
 
     public function getIsActive(): ?int {
@@ -139,8 +139,8 @@ class Exercise implements EntityInterface
         return [
             'id' => $this->id,
             'titleExercise' => $this->titleExercise,
-            'speakPoint' => $this->speakPoint ?? 0,
-            'audioPoint' => $this->audioPoint ?? 0,
+            'maxSpeakPoint' => $this->maxSpeakPoint ?? 0,
+            'maxAudioPoint' => $this->maxAudioPoint ?? 0,
             'createdAt' => $this->createdAt->format('Y-m-d H:i:s'),
             'updatedAt' => $this->updatedAt->format('Y-m-d H:i:s'),
             'isActive' => $this->isActive,
