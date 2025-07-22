@@ -23,7 +23,9 @@ class Controller
         if ($courseId === null) {
             return new JsonResponse(array_map(static fn (Course $course): array => $course->toArray(), $this->manager->getAllCourses()));
         }
+
         $course = $this->manager->findCourseById($courseId);
+
         if ($course instanceof Course) {
             return new JsonResponse($course->toArray());
         }

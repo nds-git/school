@@ -129,7 +129,6 @@ class Course implements EntityInterface
             'updatedAt' => $this->updatedAt->format('Y-m-d H:i:s'),
             'isActive' => $this->isActive,
             'lectures' => array_map(static fn(Lecture $lecture) => $lecture->toArray(), $this->lectures->toArray()),
-            'users' => array_map(static fn(User $user) => $user->toArray(), $this->users->toArray()),
         ];
     }
 }
