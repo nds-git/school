@@ -19,7 +19,11 @@ class Manager
 
     public function addUserCourse(AddCourseUserDTO $addCourseDTO): AddedCourseUserDTO
     {
-        $addCourseUserModel =  $this->modelFactory->makeModel(AddCourseUserModel::class, $addCourseDTO->userId, $addCourseDTO->courseId);
+        $addCourseUserModel =  $this->modelFactory->makeModel(
+            AddCourseUserModel::class,
+            $addCourseDTO->userId,
+            $addCourseDTO->courseId
+        );
         $user = $this->userService->addUserCourse($addCourseUserModel);
 
         return new AddedCourseUserDTO(

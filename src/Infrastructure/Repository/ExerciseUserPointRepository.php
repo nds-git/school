@@ -13,4 +13,13 @@ class ExerciseUserPointRepository extends AbstractRepository
     {
         return $this->store($exerciseUserPoint);
     }
+
+    public function checkHomework(ExerciseUserPoint $exerciseUserPoint, string $exTeacherComment, int $exSpeakPoint, int $exAudioPoint): void
+    {
+        $exerciseUserPoint->setExTeacherComment($exTeacherComment);
+        $exerciseUserPoint->setExSpeakPoint($exSpeakPoint);
+        $exerciseUserPoint->setExAudioPoint($exAudioPoint);
+        $exerciseUserPoint->setIsVerified(1);
+        $this->flush();
+    }
 }

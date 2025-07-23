@@ -2,8 +2,8 @@
 
 namespace App\Infrastructure\Repository;
 
-use App\Domain\Entity\Course;
 use Doctrine\Common\Collections\Criteria;
+use App\Domain\Entity\Course;
 use App\Domain\Entity\User;
 use DateInterval;
 

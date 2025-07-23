@@ -4,8 +4,8 @@ namespace App\Controller\Web\Homework\Create\v1;
 
 use App\Controller\Web\Homework\Create\v1\Output\CreatedHomeworkDTO;
 use App\Controller\Web\Homework\Create\v1\Input\CreateHomeworkDTO;
-use App\Domain\Service\HomeworkService;
 use App\Domain\Model\CreateHomeworkModel;
+use App\Domain\Service\HomeworkService;
 use App\Domain\Service\ModelFactory;
 
 class Manager
@@ -34,7 +34,6 @@ class Manager
 
         return new CreatedHomeworkDTO(
             $homework->getId(),
-            $homework->getUserId(),
             $homework->getExUserAnswer(),
             $homework->getExTeacherComment(),
             $homework->getExerciseId(),
