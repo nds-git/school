@@ -5,6 +5,7 @@ namespace App\Domain\Service;
 use App\Infrastructure\Repository\ExerciseUserPointRepository;
 use App\Domain\Model\CreateHomeworkModel;
 use App\Domain\Entity\ExerciseUserPoint;
+use App\Domain\Entity\User;
 
 class ExerciseUserPointService
 {
@@ -12,10 +13,10 @@ class ExerciseUserPointService
     {
     }
 
-    public function createExerciseUserPoint(CreateHomeworkModel $createHomeworkModel): ExerciseUserPoint
+    public function createExerciseUserPoint(CreateHomeworkModel $createHomeworkModel, User $user): ExerciseUserPoint
     {
         $homework = new ExerciseUserPoint();
-        $homework->setUserId($createHomeworkModel->userId);
+        $homework->setUser($user);
         $homework->setExUserAnswer($createHomeworkModel->exUserAnswer);
         $homework->setExTeacherComment($createHomeworkModel->exTeacherComment);
         $homework->setExerciseId($createHomeworkModel->exerciseId);

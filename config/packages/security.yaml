@@ -33,6 +33,7 @@ security:
         - { path: ^/api/v1/user, roles: ROLE_ADMIN, methods: [DELETE] }
         - { path: ^/api/v1/get-user-list, roles: ROLE_VIEW, methods: [GET] }
         - { path: ^/api/v1/course, roles: ROLE_TEACHER, methods: [POST] }
+        - { path: ^/api/v1/homework/check, roles: ROLE_TEACHER, methods: [PATCH] }
         - { path: ^/api/v1/course/lecture/exercises, roles: ROLE_TEACHER, methods: [POST] }
 
     role_hierarchy:

@@ -19,7 +19,7 @@ class ExerciseUserPoint implements EntityInterface
     #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id')]
     private User $user;
 
-    #[ORM\Column(name: 'user_id', type: 'bigint', nullable: true)]
+    #[ORM\Column(name: 'user_id', type: 'bigint', nullable: false)]
     private int $userId;
 
     #[ORM\Column(name: 'ex_speak_point', type: 'integer', nullable: true)]
@@ -48,14 +48,6 @@ class ExerciseUserPoint implements EntityInterface
     public function setId(int $id): void
     {
         $this->id = $id;
-    }
-
-    public function getUserId(): int {
-        return $this->userId;
-    }
-
-    public function setUserId(int $userId): void {
-        $this->userId = $userId;
     }
 
     public function getExSpeakPoint(): ?int
@@ -132,7 +124,6 @@ class ExerciseUserPoint implements EntityInterface
     {
         return [
             'id' => $this->id,
-            'user' => $this->user,
             'exSpeakPoint' => $this->exSpeakPoint,
             'exAudioPoint' => $this->exAudioPoint,
             'exUserAnswer' => $this->exUserAnswer,
