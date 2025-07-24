@@ -23,10 +23,10 @@ class Manager
             CreateHomeworkModel::class,
             $createHomeworkDTO->userId,
             $createHomeworkDTO->exUserAnswer,
-            $createHomeworkDTO->exTeacherComment,
+            '',
             $createHomeworkDTO->exerciseId,
-            $createHomeworkDTO->exSpeakPoint,
-            $createHomeworkDTO->exAudioPoint,
+            0,
+            0,
             $createHomeworkDTO->isVerified,
         );
 

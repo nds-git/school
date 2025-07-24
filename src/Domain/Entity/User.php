@@ -30,6 +30,8 @@ class User implements EntityInterface, HasMetaTimestampsInterface, SoftDeletable
     {
         $this->courses = new ArrayCollection();
         $this->exerciseUserPoint = new ArrayCollection();
+        $this->lectureUserPoint = new ArrayCollection();
+        $this->courseUserPoint = new ArrayCollection();
     }
 
     #[ORM\Column(type: 'string', length: 32, nullable: false)]
@@ -61,6 +63,12 @@ class User implements EntityInterface, HasMetaTimestampsInterface, SoftDeletable
 
     #[ORM\OneToMany(targetEntity: ExerciseUserPoint::class, mappedBy: 'user')]
     private Collection $exerciseUserPoint;
+
+    #[ORM\OneToMany(targetEntity: LectureUserPoint::class, mappedBy: 'user')]
+    private Collection $lectureUserPoint;
+
+    #[ORM\OneToMany(targetEntity: CourseUserPoint::class, mappedBy: 'user')]
+    private Collection $courseUserPoint;
 
     public function getId(): int
     {

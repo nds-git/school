@@ -2,6 +2,8 @@
 
 namespace App\Domain\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use DateTime;
 
@@ -10,6 +12,11 @@ use DateTime;
 #[ORM\Index(name: 'exercise__lecture_id__idx', columns: ['lecture_id'])]
 class Exercise implements EntityInterface
 {
+    public function __construct()
+    {
+        $this->exerciseUserPoint = new ArrayCollection();
+    }
+
     #[ORM\Column(name: 'id', type: 'bigint', unique: true)]
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'IDENTITY')]
@@ -18,6 +25,9 @@ class Exercise implements EntityInterface
     #[ORM\ManyToOne(targetEntity: 'Lecture', inversedBy: 'exercises')]
     #[ORM\JoinColumn(name: 'lecture_id', referencedColumnName: 'id')]
     private Lecture $lecture;
+
+    #[ORM\OneToMany(targetEntity: ExerciseUserPoint::class, mappedBy: 'exercise')]
+    private Collection $exerciseUserPoint;
 
     #[ORM\Column(type: 'string', length: 200, nullable: false)]
     private string $titleExercise;
