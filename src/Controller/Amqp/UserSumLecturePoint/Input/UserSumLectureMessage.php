@@ -4,13 +4,13 @@ namespace App\Controller\Amqp\UserSumLecturePoint\Input;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-class Message
+readonly class UserSumLectureMessage
 {
     public function __construct(
         #[Assert\Type('numeric')]
-        public readonly int $userId,
+        public int $userId,
         #[Assert\Type('numeric')]
-        public readonly int $lectureId,
+        public int $lectureId,
     ) {
     }
 }
