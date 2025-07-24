@@ -27,6 +27,7 @@ class Controller extends AbstractController
         $exAudioPoint =  $request->query->get('exAudioPoint');
         $this->manager->checkHomework($exerciseUserPoint, $exTeacherComment, $exSpeakPoint, $exAudioPoint);
 
+        $calculatePointsProducer->calculatePoints($exerciseUserPoint->getExercise()->getLectureId());;
         return new JsonResponse(['success' => true]);
     }
 }
