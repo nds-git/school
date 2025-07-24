@@ -35,7 +35,7 @@ class ExerciseUserPoint implements EntityInterface
     private string $exUserAnswer;
 
     #[ORM\Column(name: 'ex_teacher_comment', type: 'text', nullable: true)]
-    private ?string $exTeacherComment;
+    private string $exTeacherComment;
 
     #[ORM\Column(name: 'is_verified', type: 'smallint', nullable: true)]
     private int $isVerified;

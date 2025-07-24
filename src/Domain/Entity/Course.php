@@ -17,6 +17,7 @@ class Course implements EntityInterface
     public function __construct()
     {
         $this->lectures = new ArrayCollection();
+        $this->courseUserPoint = new ArrayCollection();
         $this->users = new ArrayCollection();
     }
 
@@ -27,6 +28,9 @@ class Course implements EntityInterface
 
     #[ORM\OneToMany(targetEntity: Lecture::class, mappedBy: 'course')]
     private Collection $lectures;
+
+    #[ORM\OneToMany(targetEntity: CourseUserPoint::class, mappedBy: 'course')]
+    private Collection $courseUserPoint;
 
     #[ORM\Column(type: 'string', length: 200, nullable: false)]
     private string $titleCourse;
