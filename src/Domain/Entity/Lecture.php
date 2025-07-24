@@ -124,6 +124,10 @@ class Lecture implements EntityInterface
         }
     }
 
+    public function getExercises(): ?array {
+        return array_map(static fn(Exercise $exercise) => $exercise->toArray(), $this->exercises->toArray());
+    }
+
     public function toArray(): array
     {
         return [

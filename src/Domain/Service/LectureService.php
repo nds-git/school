@@ -26,4 +26,10 @@ class LectureService
 
         return $lecture;
     }
+
+
+    public function findLectureById(int $id): ?Lecture
+    {
+        return $this->lectureRepository->find($id);
+    }
 }
