@@ -13,4 +13,12 @@ class LectureRepository extends AbstractRepository
     {
         return $this->store($lecture);
     }
+
+
+    public function find(int $lectureId): ?Lecture
+    {
+        $repository = $this->entityManager->getRepository(Lecture::class);
+        /** @var Lecture|null $lecture */
+        return $repository->find($lectureId);
+    }
 }

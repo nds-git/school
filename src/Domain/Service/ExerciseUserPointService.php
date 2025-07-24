@@ -28,4 +28,9 @@ class ExerciseUserPointService
 
         return $homework;
     }
+
+    public function getSumExercisesPoint(int $userId, array $exerciseIds): array
+    {
+        return $this->exerciseUserPointRepository->getSumExercisesPoint($userId, $exerciseIds);
+    }
 }

@@ -21,9 +21,7 @@ class UserRepository extends AbstractRepository
     {
         $repository = $this->entityManager->getRepository(User::class);
         /** @var User|null $user */
-        $user = $repository->find($userId);
-
-        return $user;
+        return $repository->find($userId);
     }
 
     /**

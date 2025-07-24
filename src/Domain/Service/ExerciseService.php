@@ -17,8 +17,6 @@ class ExerciseService
         $exercise = new Exercise();
         $exercise->setLecture($lecture);
         $exercise->setTitleExercise($titleExercise);
-        $exercise->setSpeakPoint($speakPoint);
-        $exercise->setAudioPoint($audioPoint);
         $exercise->setCreatedAt();
         $exercise->setUpdatedAt();
         $exercise->setIsActive($isActive);
