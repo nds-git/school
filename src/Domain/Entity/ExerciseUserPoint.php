@@ -19,6 +19,10 @@ class ExerciseUserPoint implements EntityInterface
     #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id')]
     private User $user;
 
+    #[ORM\ManyToOne(targetEntity: 'Exercise', inversedBy: 'exercise_user_point')]
+    #[ORM\JoinColumn(name: 'exercise_id', referencedColumnName: 'id')]
+    private Exercise $exercise;
+
     #[ORM\Column(name: 'user_id', type: 'bigint', nullable: false)]
     private int $userId;
 
@@ -120,6 +124,16 @@ class ExerciseUserPoint implements EntityInterface
         $this->user = $user;
     }
 
+    public function getExercise(): Exercise
+    {
+        return $this->exercise;
+    }
+
+    public function setExercise(Exercise $exercise): void
+    {
+        $this->exercise = $exercise;
+    }
+
     public function toArray(): array
     {
         return [
@@ -129,6 +143,7 @@ class ExerciseUserPoint implements EntityInterface
             'exUserAnswer' => $this->exUserAnswer,
             'exTeacherComment' => $this->exTeacherComment,
             'isVerified' => $this->isVerified,
+            'lectureId' => $this->exercise->getLectureId(),
         ];
     }
 }
