@@ -3,16 +3,16 @@ old_sound_rabbit_mq:
         default:
             url: '%env(RABBITMQ_URL)%'
     producers:
-        user_lecture_point_sum:
+        user_sum_lecture_point:
             connection: default
-            exchange_options: { name: 'old_sound_rabbit_mq.user_lecture_point_sum', type: direct }
+            exchange_options: { name: 'old_sound_rabbit_mq.user_sum_lecture_point', type: direct }
 
     consumers:
-        user_lecture_point_sum:
+        user_sum_lecture_point:
             connection: default
-            exchange_options: {name: 'old_sound_rabbit_mq.user_lecture_point_sum', type: direct}
-            queue_options: {name: 'old_sound_rabbit_mq.consumer.user_lecture_point_sum'}
-            callback: App\Controller\Amqp\UserSumLecturePoint\Consumer
+            exchange_options: {name: 'old_sound_rabbit_mq.user_sum_lecture_point', type: direct}
+            queue_options: {name: 'old_sound_rabbit_mq.consumer.user_sum_lecture_point'}
+            callback: App\Controller\Amqp\UserSumLecturePoint\UserSumLecturePointConsumer
             idle_timeout: 300
             idle_timeout_exit_code: 0
             graceful_max_execution:

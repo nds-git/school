@@ -32,4 +32,4 @@ services:
 
     App\Infrastructure\Bus\RabbitMqBus:
         calls:
-            - [ 'registerProducer', [ !php/enum App\Infrastructure\Bus\AmqpExchangeEnum::UserLecturePointSum, '@old_sound_rabbit_mq.user_lecture_point_sum' ] ]
+            - [ 'registerProducer', [ !php/enum App\Infrastructure\Bus\AmqpExchangeEnum::UserSumLecturePoint, '@old_sound_rabbit_mq.user_sum_lecture_point_producer' ] ]
