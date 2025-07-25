@@ -23,7 +23,6 @@ class ExerciseUserPointRepository extends AbstractRepository
         $this->flush();
     }
 
-
     public function getSumExercisesPoint(int $userId, array $exerciseIds): array
     {
         // Убедитесь, что $exerciseIds не пустой
