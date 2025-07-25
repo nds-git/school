@@ -12,6 +12,11 @@ class ExerciseService
     {
     }
 
+    public function findExerciseById(int $id): ?Exercise
+    {
+        return $this->exerciseRepository->find($id);
+    }
+
     public function postExercise(Lecture $lecture, string $titleExercise, int $speakPoint, int $audioPoint, int $isActive): Exercise
     {
         $exercise = new Exercise();
@@ -19,6 +24,8 @@ class ExerciseService
         $exercise->setTitleExercise($titleExercise);
         $exercise->setCreatedAt();
         $exercise->setUpdatedAt();
+        $exercise->setMaxSpeakPoint($speakPoint);
+        $exercise->setMaxAudioPoint($audioPoint);
         $exercise->setIsActive($isActive);
         $lecture->addExercise($exercise);
 

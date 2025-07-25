@@ -13,4 +13,13 @@ class ExerciseRepository extends AbstractRepository
     {
         return $this->store($exercise);
     }
+
+    public function find(int $exerciseId): ?Exercise
+    {
+        $repository = $this->entityManager->getRepository(Exercise::class);
+        /** @var Exercise|null $exercise */
+        $exercise = $repository->find($exerciseId);
+
+        return $exercise;
+    }
 }
