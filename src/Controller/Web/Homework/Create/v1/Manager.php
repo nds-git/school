@@ -36,7 +36,7 @@ class Manager
             $homework->getId(),
             $homework->getExUserAnswer(),
             $homework->getExTeacherComment(),
-            $homework->getExerciseId(),
+            $homework->getExercise()->getId(),
             $homework->getExSpeakPoint(),
             $homework->getExAudioPoint(),
             $homework->getIsVerified(),
